@@ -1,0 +1,10 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 3.0 )
+
+PROJECT( flexcore_cl )
+
+FIND_PACKAGE( OpenCL)
+
+ADD_SUBDIRECTORY( 3rdparty/flexcore )
+
+ADD_SUBDIRECTORY( tests )
+

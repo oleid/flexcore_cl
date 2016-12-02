@@ -1,0 +1,3 @@
+[submodule "3rdparty/flexcore"]
+	path = 3rdparty/flexcore
+	url = https://github.com/FlexCoreLib/flexcore.git
