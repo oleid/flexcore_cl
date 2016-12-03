@@ -72,19 +72,18 @@ struct cl_processing : fc::owning_base_node
 		   const std::string source = kernel_buffer.str();
 
 		   // Compile OpenCL program for found device.
-		   cl::Program program(context, cl::Program::Sources(
-								   1, std::make_pair(source.c_str(), source.length())
-								   ));
+		   cl::Program program(context, source);
 
-		   //try {
-			   program.build(devices);
-		   /*} catch (const cl::Error&) {
+		   try {
+			   program.build(devices, "-cl-std=CL2.0");
+		   } catch (const cl::Error& e) {
 			   std::cerr
 					   << "OpenCL compilation error" << std::endl
 					   << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(devices[0])
+					   << e.what()
 					   << std::endl;
-			   return 1;
-		   }*/
+			   throw(e);
+		   }
 
 		   kernel_demo1 =  cl::Kernel(program, "add");
 	   }
@@ -171,5 +170,4 @@ int main() {
 	infra.start_scheduler();
 	infra.iterate_main_loop();
 	infra.stop_scheduler();
-
 }
